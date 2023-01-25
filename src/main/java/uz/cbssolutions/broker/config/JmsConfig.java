@@ -31,6 +31,8 @@ public class JmsConfig {
         log.debug("getConnectionFactory started for broker url : {}", properties.url());
         var connectionFactory = new ActiveMQTopicConnectionFactory();
         connectionFactory.setBrokerURL(properties.url());
+        connectionFactory.setUser(properties.user());
+        connectionFactory.setPassword(properties.password());
         return connectionFactory;
     }
 

@@ -7,8 +7,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import uz.anorbank.artemis.config.JmsSubPubConfig;
-import uz.anorbank.artemis.service.Publisher;
+import uz.cbssolutions.broker.config.JmsSubPubConfig;
+import uz.cbssolutions.broker.service.Publisher;
 
 @Slf4j
 @Service

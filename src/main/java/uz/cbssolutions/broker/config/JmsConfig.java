@@ -28,9 +28,9 @@ public class JmsConfig {
     @SneakyThrows
     @Bean(CONNECTION_FACTORY)
     public ConnectionFactory getConnectionFactory() {
-        log.debug("getConnectionFactory started for broker url : {}", properties.getUrl());
+        log.debug("getConnectionFactory started for broker url : {}", properties.url());
         var connectionFactory = new ActiveMQTopicConnectionFactory();
-        connectionFactory.setBrokerURL(properties.getUrl());
+        connectionFactory.setBrokerURL(properties.url());
         return connectionFactory;
     }
 

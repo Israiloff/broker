@@ -23,11 +23,9 @@ public class JmsConfig {
     public static final String CONNECTION_FACTORY = "artemisConnectionFactory";
     public static final String MESSAGE_CONVERTER = "artemisMessageConverter";
 
-    private final JmsProperties properties;
-
     @SneakyThrows
     @Bean(CONNECTION_FACTORY)
-    public ConnectionFactory getConnectionFactory() {
+    public ConnectionFactory getConnectionFactory(JmsProperties properties) {
         log.debug("getConnectionFactory started for broker url : {}", properties.url());
         var connectionFactory = new ActiveMQTopicConnectionFactory();
         connectionFactory.setBrokerURL(properties.url());

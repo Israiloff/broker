@@ -2,6 +2,8 @@ package uz.cbssolutions.broker.service;
 
 import reactor.core.publisher.Mono;
 
+import java.util.Map;
+
 public interface Publisher {
-    Mono<Void> publish(String topic, Object object);
+    <TRequestModel> Mono<Void> publish(String topic, TRequestModel model, Map<String, Object> headers);
 }

@@ -1,67 +1,53 @@
 package uz.cbssolutions.broker.service;
 
-import jakarta.jms.JMSException;
 import jakarta.jms.MessageListener;
-import jakarta.jms.TextMessage;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Flux;
+import uz.cbssolutions.broker.error.SubscriberNotFoundException;
 import uz.cbssolutions.broker.model.Message;
+import uz.cbssolutions.broker.util.ListenerUtil;
 import uz.cbssolutions.broker.util.SerializationUtil;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Slf4j
 @Component
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class MainMessageListener implements MessageListener {
 
-    private final Map<String, List<Subscriber>> subscribers;
+    private final Flux<Subscriber> subscribers;
     private final SerializationUtil serializationUtil;
+    private final ListenerUtil listenerUtil;
 
-    public MainMessageListener(List<Subscriber> subscribers, SerializationUtil serializationUtil) {
-        this.serializationUtil = serializationUtil;
-        this.subscribers = subscribers
-                .stream()
-                .collect(Collectors.groupingBy(Subscriber::getTopic));
-    }
-
-    private static HashMap<String, Object> getMessageProperties(jakarta.jms.Message msg) throws JMSException {
-        var properties = new HashMap<String, Object>();
-        var srcProperties = msg.getPropertyNames();
-        while (srcProperties.hasMoreElements()) {
-            var propertyName = (String) srcProperties.nextElement();
-            properties.put(propertyName, msg.getObjectProperty(propertyName));
+    @SneakyThrows
+    public MainMessageListener(List<Subscriber> subscribers, SerializationUtil serializationUtil,
+                               ListenerUtil listenerUtil) {
+        if (subscribers.size() < 1) {
+            throw new SubscriberNotFoundException();
         }
-        return properties;
+
+        this.serializationUtil = serializationUtil;
+        this.subscribers = Flux.fromIterable(subscribers);
+        this.listenerUtil = listenerUtil;
     }
 
     @SneakyThrows
     @Override
     public void onMessage(jakarta.jms.Message message) {
         log.debug("onMessage started");
-        if (message instanceof TextMessage) {
-            var jsonText = ((TextMessage) message).getText();
-            var topic = ((ActiveMQTopic) message.getJMSDestination()).getName();
-            var body = serializationUtil.deserialize(jsonText, subscribers.get(topic).stream().findFirst().orElseThrow().getMsgClass());
-            var headers = getMessageProperties(message);
-            subscribers.get(topic).forEach(subscriber -> subscriber.handle(new Message(body, headers)));
-//            var subscribersPublisher = Flux.fromIterable(subscribers.get(topic));
-//
-//            subscribersPublisher
-//                    .last()
-//                    .map(Subscriber::getMsgClass)
-//                    .flatMap(targetClass -> serializationUtil.reactiveDeserialization(jsonText, targetClass))
-//                    .log()
-//                    .flatMapMany(o -> subscribersPublisher.flatMap(subscriber -> subscriber.handle(new Message(o, new HashMap<>()))))
-//                    .doOnError(throwable -> log.error("error occurred while processing jms message : {}", throwable))
-//                    .subscribe();
-        } else {
-            throw new IllegalArgumentException("Message must be of type TextMessage");
-        }
+
+        var topic = listenerUtil.getTopicName(message);
+        var json = listenerUtil.getJsonBody(message);
+        var headers = listenerUtil.getMessageProperties(message);
+        var filtered = subscribers.filter(subscriber -> Objects.equals(subscriber.getTopic(), topic));
+
+        filtered.last()
+                .map(subscriber -> serializationUtil.deserialize(json, subscriber.getMsgClass()))
+                .flatMapMany(o -> filtered.flatMap(subscriber -> subscriber.handle(new Message(o, headers))))
+                .doOnError(throwable -> log.error("error occurred while processing jms message : {}", throwable))
+                .subscribe();
     }
 }

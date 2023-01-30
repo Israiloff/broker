@@ -1,5 +1,6 @@
 package uz.cbssolutions.broker.service;
 
+import reactor.core.publisher.Mono;
 import uz.cbssolutions.broker.model.Message;
 
 public interface Subscriber<TMessage> {
@@ -7,6 +8,6 @@ public interface Subscriber<TMessage> {
 
     String getTopic();
 
-    void handle(Message<TMessage> message);
+    Mono<Void> handle(Message<TMessage> message);
 }
 

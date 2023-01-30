@@ -1,21 +1,16 @@
 package uz.cbssolutions.broker.config;
 
 import jakarta.jms.ConnectionFactory;
-import jakarta.jms.Session;
+import jakarta.jms.MessageListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
-import org.springframework.jms.config.JmsListenerContainerFactory;
 import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.listener.adapter.MessageListenerAdapter;
 import org.springframework.jms.support.converter.MessageConverter;
-
-import java.util.UUID;
 
 @Configuration
 @RequiredArgsConstructor
@@ -40,18 +35,10 @@ public class JmsSubPubConfig {
         return template;
     }
 
-    //    for consumer
-    @Bean(CONTAINER_FACTORY)
-    public JmsListenerContainerFactory<?> artemisJmsContainerFactory(DefaultJmsListenerContainerFactoryConfigurer configurer,
-                                                                     ApplicationContext applicationContext) {
-        var factory = new DefaultJmsListenerContainerFactory();
-        factory.setMessageConverter(messageConverter);
-        factory.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
-        factory.setClientId(applicationContext.getId() + "_" + UUID.randomUUID());
-        factory.setPubSubDomain(true);
-        factory.setSubscriptionDurable(true);
-        factory.setSubscriptionShared(true);
-        configurer.configure(factory, connectionFactory);
-        return factory;
+    @Bean
+    public MessageListenerAdapter messageListenerAdapter(MessageListener listener) {
+        var adapter = new MessageListenerAdapter(listener);
+        adapter.setDefaultListenerMethod("onMessage");
+        return adapter;
     }
 }

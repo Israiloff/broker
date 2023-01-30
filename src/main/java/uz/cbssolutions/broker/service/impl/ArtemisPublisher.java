@@ -25,7 +25,6 @@ public class ArtemisPublisher implements Publisher {
 
     private static MessagePostProcessor configureMessage(Map<String, Object> headers) {
         return message -> {
-            message.clearProperties();
             headers.entrySet().forEach(header -> applyHeader(message, header));
             return message;
         };

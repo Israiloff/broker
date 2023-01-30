@@ -1,10 +1,12 @@
 package uz.cbssolutions.broker.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.jms.ConnectionFactory;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopicConnectionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,10 +37,10 @@ public class JmsConfig {
     }
 
     @Bean(MESSAGE_CONVERTER)
-    public MessageConverter jacksonJmsMessageConverter() {
+    public MessageConverter jacksonJmsMessageConverter(@Qualifier(SerializerConfig.SERIALIZER_NAME) ObjectMapper objectMapper) {
         var converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
-        converter.setTypeIdPropertyName("_type");
+        converter.setObjectMapper(objectMapper);
         return converter;
     }
 }

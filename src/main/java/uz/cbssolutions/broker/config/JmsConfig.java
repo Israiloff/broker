@@ -15,6 +15,9 @@ import org.springframework.jms.support.converter.MappingJackson2MessageConverter
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.MessageType;
 
+/**
+ * JMS related common configurations.
+ */
 @EnableJms
 @Slf4j
 @Configuration
@@ -25,6 +28,12 @@ public class JmsConfig {
     public static final String CONNECTION_FACTORY = "artemisConnectionFactory";
     public static final String MESSAGE_CONVERTER = "artemisMessageConverter";
 
+    /**
+     * Connection factory behaviour defined bean.
+     *
+     * @param properties JMS external properties.
+     * @return Instance of configured connection factory.
+     */
     @SneakyThrows
     @Bean(CONNECTION_FACTORY)
     public ConnectionFactory getConnectionFactory(JmsProperties properties) {
@@ -36,8 +45,15 @@ public class JmsConfig {
         return connectionFactory;
     }
 
+    /**
+     * JMS messages' serialization/deserialization rules defined bean.
+     *
+     * @param objectMapper Jackson mapper's instance.
+     * @return Configured message converter.
+     */
     @Bean(MESSAGE_CONVERTER)
-    public MessageConverter jacksonJmsMessageConverter(@Qualifier(SerializerConfig.SERIALIZER_NAME) ObjectMapper objectMapper) {
+    public MessageConverter jacksonJmsMessageConverter(
+            @Qualifier(SerializerConfig.SERIALIZER_NAME) ObjectMapper objectMapper) {
         var converter = new MappingJackson2MessageConverter();
         converter.setTargetType(MessageType.TEXT);
         converter.setObjectMapper(objectMapper);

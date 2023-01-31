@@ -14,6 +14,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Entry point of all incoming messages. Used as resolver of subscribed topics.
+ */
 @Slf4j
 @Component
 @SuppressWarnings({"unchecked", "rawtypes"})
@@ -34,6 +37,11 @@ public class MainMessageListener implements MessageListener {
         this.listenerUtil = listenerUtil;
     }
 
+    /**
+     * Handler of incoming messages.
+     *
+     * @param message The message passed to the listener
+     */
     @SneakyThrows
     @Override
     public void onMessage(jakarta.jms.Message message) {
@@ -46,7 +54,8 @@ public class MainMessageListener implements MessageListener {
 
         filtered.last()
                 .map(subscriber -> serializer.deserialize(json, subscriber.getMsgClass()))
-                .flatMapMany(o -> filtered.flatMap(subscriber -> subscriber.handle(new Message((Serializable) o, headers))))
+                .flatMapMany(o -> filtered.flatMap(subscriber ->
+                        subscriber.handle(new Message((Serializable) o, headers))))
                 .doOnError(throwable -> log.error("error occurred while processing jms message : {}", throwable))
                 .subscribe();
     }

@@ -30,8 +30,8 @@ public class SubscriberConfig {
     private final GenericApplicationContext applicationContext;
 
     /**
-     * Multiple JMS message listener container beans creation point. Created message listener containers' count will be equal to
-     * implementations of {@link Subscriber} (i.e. each {@link Subscriber} will have its own container).
+     * Multiple JMS message listener container beans creation point. Created message listener containers' count will be
+     * equal to implementations of {@link Subscriber} (i.e. each {@link Subscriber} will have its own container).
      *
      * @param subscribers            List of implemented {@link Subscriber}.
      * @param messageListenerAdapter Default message listener adapter.
@@ -40,14 +40,15 @@ public class SubscriberConfig {
     @Bean
     public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter) {
         return args -> subscribers.forEach(subscriber -> {
-            var container = createContainer(subscriber, messageListenerAdapter);
+            var container = createContainer(messageListenerAdapter, subscriber);
             var beanName = "MessageListenerContainer_" + subscriber.getTopic();
             applicationContext.registerBean(beanName, DefaultMessageListenerContainer.class, () -> container);
             applicationContext.getBean(beanName, DefaultMessageListenerContainer.class).start();
         });
     }
 
-    private DefaultMessageListenerContainer createContainer(Subscriber subscriber, MessageListenerAdapter messageListenerAdapter) {
+    private DefaultMessageListenerContainer createContainer(MessageListenerAdapter messageListenerAdapter,
+                                                            Subscriber subscriber) {
         var container = new DefaultMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageConverter(messageConverter);

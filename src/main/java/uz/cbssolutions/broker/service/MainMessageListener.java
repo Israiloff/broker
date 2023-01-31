@@ -8,7 +8,7 @@ import reactor.core.publisher.Flux;
 import uz.cbssolutions.broker.error.SubscriberNotFoundException;
 import uz.cbssolutions.broker.model.Message;
 import uz.cbssolutions.broker.util.ListenerUtil;
-import uz.cbssolutions.broker.util.SerializationUtil;
+import uz.cbssolutions.serializer.service.SneakySerializer;
 
 import java.util.List;
 import java.util.Objects;
@@ -19,17 +19,16 @@ import java.util.Objects;
 public class MainMessageListener implements MessageListener {
 
     private final Flux<Subscriber> subscribers;
-    private final SerializationUtil serializationUtil;
+    private final SneakySerializer serializer;
     private final ListenerUtil listenerUtil;
 
     @SneakyThrows
-    public MainMessageListener(List<Subscriber> subscribers, SerializationUtil serializationUtil,
-                               ListenerUtil listenerUtil) {
+    public MainMessageListener(List<Subscriber> subscribers, SneakySerializer serializer, ListenerUtil listenerUtil) {
         if (subscribers.size() < 1) {
             throw new SubscriberNotFoundException();
         }
 
-        this.serializationUtil = serializationUtil;
+        this.serializer = serializer;
         this.subscribers = Flux.fromIterable(subscribers);
         this.listenerUtil = listenerUtil;
     }
@@ -45,7 +44,7 @@ public class MainMessageListener implements MessageListener {
         var filtered = subscribers.filter(subscriber -> Objects.equals(subscriber.getTopic(), topic));
 
         filtered.last()
-                .map(subscriber -> serializationUtil.deserialize(json, subscriber.getMsgClass()))
+                .map(subscriber -> serializer.deserialize(json, subscriber.getMsgClass()))
                 .flatMapMany(o -> filtered.flatMap(subscriber -> subscriber.handle(new Message(o, headers))))
                 .doOnError(throwable -> log.error("error occurred while processing jms message : {}", throwable))
                 .subscribe();

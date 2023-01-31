@@ -23,6 +23,7 @@
         <broker-error.version>0.0.1</broker-error.version>
         <cbs-checkstyle.version>0.0.18</cbs-checkstyle.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
+        <sneaky-serializer.version>0.0.1</sneaky-serializer.version>
     </properties>
 
     <dependencies>
@@ -58,6 +59,11 @@
             <groupId>uz.cbssolutions</groupId>
             <artifactId>broker-error</artifactId>
             <version>${broker-error.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>uz.cbssolutions</groupId>
+            <artifactId>sneaky-serializer</artifactId>
+            <version>${sneaky-serializer.version}</version>
         </dependency>
     </dependencies>
 

@@ -40,7 +40,7 @@ public class MainMessageListener implements MessageListener {
 
         var topic = listenerUtil.getTopicName(message);
         var json = listenerUtil.getJsonBody(message);
-        var headers = listenerUtil.getMessageProperties(message);
+        var headers = listenerUtil.getHeaders(message);
         var filtered = subscribers.filter(subscriber -> Objects.equals(subscriber.getTopic(), topic));
 
         filtered.last()

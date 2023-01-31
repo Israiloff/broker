@@ -13,6 +13,7 @@ import reactor.core.scheduler.Schedulers;
 import uz.cbssolutions.broker.config.JmsSubPubConfig;
 import uz.cbssolutions.broker.service.Publisher;
 
+import java.io.Serializable;
 import java.util.Map;
 
 @Slf4j
@@ -36,7 +37,8 @@ public class ArtemisPublisher implements Publisher {
     }
 
     @Override
-    public <TRequestModel> Mono<Void> publish(String topic, TRequestModel model, Map<String, Object> headers) {
+    public <TRequestModel extends Serializable> Mono<Void> publish(String topic, TRequestModel model,
+                                                                   Map<String, Object> headers) {
         log.debug("publish started for topic : {}", topic);
         return Mono.<Void>create(sink -> {
             jmsTemplate.convertAndSend(topic, model, configureMessage(headers));

@@ -50,7 +50,7 @@ public class ListenerUtil {
     }
 
     /**
-     * Extracts name of topic from specified message.
+     * Extracts the name of topic from specified message.
      *
      * @param message Target message.
      * @return Topic name.

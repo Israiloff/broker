@@ -10,6 +10,7 @@ import uz.cbssolutions.broker.model.Message;
 import uz.cbssolutions.broker.util.ListenerUtil;
 import uz.cbssolutions.serializer.service.SneakySerializer;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -45,7 +46,7 @@ public class MainMessageListener implements MessageListener {
 
         filtered.last()
                 .map(subscriber -> serializer.deserialize(json, subscriber.getMsgClass()))
-                .flatMapMany(o -> filtered.flatMap(subscriber -> subscriber.handle(new Message(o, headers))))
+                .flatMapMany(o -> filtered.flatMap(subscriber -> subscriber.handle(new Message((Serializable) o, headers))))
                 .doOnError(throwable -> log.error("error occurred while processing jms message : {}", throwable))
                 .subscribe();
     }

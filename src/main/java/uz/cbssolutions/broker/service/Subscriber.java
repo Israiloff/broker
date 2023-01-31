@@ -3,13 +3,15 @@ package uz.cbssolutions.broker.service;
 import reactor.core.publisher.Mono;
 import uz.cbssolutions.broker.model.Message;
 
+import java.io.Serializable;
+
 /**
  * Message subscriber.
  * Subscribes to specified topic.
  *
  * @param <TRequestModel> Type of expected incoming message (i.e. Body of message).
  */
-public interface Subscriber<TRequestModel> {
+public interface Subscriber<TRequestModel extends Serializable> {
 
     /**
      * Method to get class of expected body.

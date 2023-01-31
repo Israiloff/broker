@@ -68,8 +68,6 @@
                         <phase>validate</phase>
                         <configuration>
                             <configLocation>checkstyle.config.xml</configLocation>
-                            <suppressionsLocation>checkstyle-suppressions.xml</suppressionsLocation>
-                            <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
                         </configuration>
@@ -82,7 +80,7 @@
                     <dependency>
                         <groupId>uz.cbssolutions</groupId>
                         <artifactId>checkstyle</artifactId>
-                        <version>0.0.15</version>
+                        <version>0.0.18</version>
                     </dependency>
                 </dependencies>
             </plugin>

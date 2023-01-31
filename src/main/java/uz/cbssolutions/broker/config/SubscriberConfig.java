@@ -16,6 +16,9 @@ import uz.cbssolutions.broker.service.Subscriber;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Subscription related specific beans configuration.
+ */
 @Configuration
 @RequiredArgsConstructor
 public class SubscriberConfig {
@@ -26,6 +29,14 @@ public class SubscriberConfig {
     private final ConnectionFactory connectionFactory;
     private final GenericApplicationContext applicationContext;
 
+    /**
+     * Multiple JMS message listener container beans creation point. Created message listener containers' count will be equal to
+     * implementations of {@link Subscriber} (i.e. each {@link Subscriber} will have its own container).
+     *
+     * @param subscribers            List of implemented {@link Subscriber}.
+     * @param messageListenerAdapter Default message listener adapter.
+     * @return Runner's bean.
+     */
     @Bean
     public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter) {
         return args -> subscribers.forEach(subscriber -> {

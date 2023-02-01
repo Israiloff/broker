@@ -89,7 +89,7 @@ class Dummy {
 
 ## Subscribe
 
-Topic subscription is a bit complexer than [message publishing](#Publish).
+Topic subscription is a bit complexer than [message publishing](#publish).
 To subscribe to some topic you must implement the 
 [***Subscriber***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java) 
 interface. You will see that the [***Subscriber***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)

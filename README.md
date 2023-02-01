@@ -1,6 +1,6 @@
 # Broker plugin
 
-These plugins have been created to simplify subscribe/publish pattern of JMS in reactive manner.
+Plugin has been created to simplify subscribe/publish pattern of JMS in reactive manner.
 
 ## Plugin configuration
 

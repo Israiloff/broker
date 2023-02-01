@@ -34,10 +34,15 @@ cbs-broker:
 
 ## Publish
 
-Message publishing in reactive manner via ***this*** plugin is pretty easy.
+Message publishing in reactive manner via [
+***this***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) plugin is pretty easy.
 
-First of all, you must inject instance of ***Publisher*** interface. Then somewhere of your reactive downstream call the
-***publish(..)*** method. Pass the ***topic name***, ***body*** and ***headers*** into it. That's it!
+First of all, you must inject instance of [***Publisher
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Publisher.java)
+interface. Then somewhere of your reactive downstream call the
+[***publish(..)
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Publisher.java)
+method. Pass the ***topic name***, ***body*** and ***headers*** into it. That's it!
 
 ```java
 /**
@@ -88,13 +93,27 @@ class Dummy {
 ## Subscribe
 
 Topic subscription is a bit complexer than [message publishing](#Publish).
-To subscribe to some topic you must implement the ***Subscriber*** interface. You will see that the ***Subscriber***
-interface has three members. The ***getTopic()*** method returns the name of the topic to which you want to subscribe.
-***getMsgClass()*** method returns the class of the object that you expect in the message's body. And ***handle(..)***
+To subscribe to some topic you must implement the
+[***Subscriber
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
+interface. You will see that the [***Subscriber
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
+interface has three members. The [***getTopic()
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
+method returns the name of the topic to which you want to subscribe.
+[***getMsgClass()
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
+method returns the class of the object that you expect in the message's body. And
+[***handle(..)
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
 method handles an incoming message.
 
-> Note that expected message (i.e. ***TRequestModel***) of the ***Subscriber*** interface must implement the
-***Serializable*** interface.
+> Note that expected message (i.e. [***TRequestModel
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java))
+> of the [***Subscriber
+***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
+> interface must implement the
+[***Serializable***](https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html) interface.
 
 ```java
 /**

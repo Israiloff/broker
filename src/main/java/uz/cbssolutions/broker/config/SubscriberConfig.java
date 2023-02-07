@@ -19,6 +19,7 @@ import java.util.UUID;
 /**
  * Subscription related specific beans configuration.
  */
+@SuppressWarnings({"rawtypes", "SpringFacetCodeInspection"})
 @Configuration
 @RequiredArgsConstructor
 public class SubscriberConfig {
@@ -41,7 +42,7 @@ public class SubscriberConfig {
     public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter) {
         return args -> subscribers.forEach(subscriber -> {
             var container = createContainer(messageListenerAdapter, subscriber);
-            var beanName = "MessageListenerContainer_" + subscriber.getTopic();
+            var beanName = "messageListenerContainer_" + subscriber.getTopic();
             applicationContext.registerBean(beanName, DefaultMessageListenerContainer.class, () -> container);
             applicationContext.getBean(beanName, DefaultMessageListenerContainer.class).start();
         });

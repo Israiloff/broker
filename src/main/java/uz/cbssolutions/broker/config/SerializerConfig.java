@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Main serializer configurations.
  */
+@SuppressWarnings("SpringFacetCodeInspection")
 @Configuration
 public class SerializerConfig {
 

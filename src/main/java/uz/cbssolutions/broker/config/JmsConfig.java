@@ -18,6 +18,7 @@ import org.springframework.jms.support.converter.MessageType;
 /**
  * JMS related common configurations.
  */
+@SuppressWarnings("SpringFacetCodeInspection")
 @EnableJms
 @Slf4j
 @Configuration

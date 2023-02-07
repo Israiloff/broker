@@ -15,6 +15,7 @@ import org.springframework.jms.support.converter.MessageConverter;
 /**
  * JMS subscriber/publisher related configurations.
  */
+@SuppressWarnings("SpringFacetCodeInspection")
 @Configuration
 @RequiredArgsConstructor
 @ConfigurationPropertiesScan

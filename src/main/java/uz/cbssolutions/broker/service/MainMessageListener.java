@@ -5,7 +5,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
-import uz.cbssolutions.broker.error.SubscriberNotFoundException;
 import uz.cbssolutions.broker.model.Message;
 import uz.cbssolutions.broker.util.ListenerUtil;
 import uz.cbssolutions.serializer.service.SneakySerializer;
@@ -28,10 +27,6 @@ public class MainMessageListener implements MessageListener {
 
     @SneakyThrows
     public MainMessageListener(List<Subscriber> subscribers, SneakySerializer serializer, ListenerUtil listenerUtil) {
-        if (subscribers.size() < 1) {
-            throw new SubscriberNotFoundException();
-        }
-
         this.serializer = serializer;
         this.subscribers = Flux.fromIterable(subscribers);
         this.listenerUtil = listenerUtil;

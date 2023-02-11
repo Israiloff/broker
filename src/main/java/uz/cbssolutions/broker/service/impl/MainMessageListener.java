@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.service;
+package uz.cbssolutions.broker.service.impl;
 
 import jakarta.jms.MessageListener;
 import lombok.SneakyThrows;
@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import uz.cbssolutions.broker.model.Message;
+import uz.cbssolutions.broker.service.Subscriber;
 import uz.cbssolutions.broker.util.ListenerUtil;
 import uz.cbssolutions.serializer.service.SneakySerializer;
 

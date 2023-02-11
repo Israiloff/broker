@@ -11,7 +11,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.0.41</version>
+    <version>0.1.42</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 
@@ -19,11 +19,12 @@
         <java.version>17</java.version>
         <checkstyle.version>0.0.16</checkstyle.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
-        <broker-model.version>0.0.2</broker-model.version>
+        <broker-model.version>0.0.3</broker-model.version>
         <broker-error.version>0.0.1</broker-error.version>
-        <cbs-checkstyle.version>0.1.25</cbs-checkstyle.version>
+        <cbs-checkstyle.version>0.2.25</cbs-checkstyle.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <sneaky-serializer.version>0.0.1</sneaky-serializer.version>
+        <rjvalidation.version>1.0.0</rjvalidation.version>
     </properties>
 
     <dependencies>
@@ -64,6 +65,11 @@
             <groupId>uz.cbssolutions</groupId>
             <artifactId>sneaky-serializer</artifactId>
             <version>${sneaky-serializer.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>uz.cbssolutions</groupId>
+            <artifactId>rjvalidation</artifactId>
+            <version>${rjvalidation.version}</version>
         </dependency>
     </dependencies>
 

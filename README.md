@@ -6,7 +6,7 @@ Plugin has been created to simplify subscribe/publish pattern of JMS in reactive
 
 To configure plugin do the steps described below:
 
-- Include the ***broker*** dependency into your 
+- Include the [***Broker***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) dependency into your 
 [***pom.xml***](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html).
 
 ```xml
@@ -18,9 +18,11 @@ To configure plugin do the steps described below:
 </dependency>
 ```
 
-> Where ***VERSION*** is the latest version of ***broker*** plugin. You can check it out in ***The Package Registry***.
+> Where [***VERSION***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release/uz/cbssolutions/broker/) is the latest version of the 
+[***Broker***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) plugin. You can check it out in 
+the [***Package Registry***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release).
 
-- Configure connection parameters in your ***application.yml***.
+- Configure connection parameters in your [***application.yml***](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
 
 ```yml
 cbs-broker:
@@ -150,5 +152,40 @@ public class DummySubscriber implements Subscriber<DummyModel> {
  * @param str Dummy text data.
  */
 public record DummyModel(String str) implements Serializable {
+}
+```
+
+
+## Test
+
+To disable the plugin for running your unit tests you must mock up a few components. Moreover, the mocking components must 
+be qualified by their proper bean names. The mocking components will be listed below. 
+- [***ConnectionFactory***](https://jakarta.ee/specifications/messaging/3.0/apidocs/jakarta/jms/connectionfactory)
+- [***MessageConverter***](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jms/support/converter/MessageConverter.html)
+- [***JmsTemplate***](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/jms/core/JmsTemplate.html)
+
+You can mock up above components by using [***Mockito***](https://site.mockito.org/) mocking framework in your test 
+[***configuration***](https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/using-boot-configuration-classes.html) class.
+
+
+```java
+import jakarta.jms.ConnectionFactory;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.MessageConverter;
+import uz.cbssolutions.broker.config.JmsConfig;
+import uz.cbssolutions.broker.config.JmsSubPubConfig;
+
+@Configuration
+public class TestConfig {
+
+    @MockBean(name = JmsConfig.CONNECTION_FACTORY)
+    public ConnectionFactory getConnectionFactory;
+    @MockBean(name = JmsConfig.MESSAGE_CONVERTER)
+    public MessageConverter jacksonJmsMessageConverter;
+    @MockBean(name = JmsSubPubConfig.JMS_TEMPLATE)
+    public JmsTemplate jmsTemplate;
+    
 }
 ```

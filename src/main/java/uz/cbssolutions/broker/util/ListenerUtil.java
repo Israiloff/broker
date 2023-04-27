@@ -2,9 +2,13 @@ package uz.cbssolutions.broker.util;
 
 import jakarta.jms.JMSException;
 import jakarta.jms.TextMessage;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.springframework.stereotype.Component;
+import uz.cbssolutions.broker.config.ExchangeType;
+import uz.cbssolutions.broker.config.JmsProperties;
 import uz.cbssolutions.broker.error.MessageTypeMismatchException;
 
 import java.util.HashMap;
@@ -14,7 +18,10 @@ import java.util.Map;
  * Utilities for JMS message listener.
  */
 @Component
+@RequiredArgsConstructor
 public class ListenerUtil {
+
+    private final JmsProperties properties;
 
     /**
      * Gets headers of message.
@@ -24,13 +31,13 @@ public class ListenerUtil {
      */
     @SneakyThrows
     public Map<String, Object> getHeaders(jakarta.jms.Message msg) {
-        var properties = new HashMap<String, Object>();
+        var propertyMap = new HashMap<String, Object>();
         var srcProperties = msg.getPropertyNames();
         while (srcProperties.hasMoreElements()) {
             var propertyName = (String) srcProperties.nextElement();
-            properties.put(propertyName, msg.getObjectProperty(propertyName));
+            propertyMap.put(propertyName, msg.getObjectProperty(propertyName));
         }
-        return properties;
+        return propertyMap;
     }
 
     /**
@@ -57,6 +64,8 @@ public class ListenerUtil {
      * @throws JMSException JMS processing error.
      */
     public String getTopicName(jakarta.jms.Message message) throws JMSException {
-        return ((ActiveMQTopic) message.getJMSDestination()).getName();
+        return properties.exchangeType() == ExchangeType.TOPIC
+                ? ((ActiveMQTopic) message.getJMSDestination()).getName()
+                : ((ActiveMQQueue) message.getJMSDestination()).getName();
     }
 }

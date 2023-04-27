@@ -12,6 +12,8 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
 import org.springframework.jms.support.converter.MessageConverter;
 
+import java.util.Objects;
+
 /**
  * JMS subscriber/publisher related configurations.
  */
@@ -32,13 +34,14 @@ public class JmsSubPubConfig {
     /**
      * Main JMS template creation defined bean.
      *
+     * @param properties JMS properties.
      * @return Configured JMS template.
      */
     @Bean(JMS_TEMPLATE)
-    public JmsTemplate jmsTemplate() {
+    public JmsTemplate jmsTemplate(JmsProperties properties) {
         var template = new JmsTemplate(connectionFactory);
         template.setMessageConverter(messageConverter);
-        template.setPubSubDomain(true);
+        template.setPubSubDomain(Objects.equals(properties.exchangeType(), ExchangeType.TOPIC));
         return template;
     }
 

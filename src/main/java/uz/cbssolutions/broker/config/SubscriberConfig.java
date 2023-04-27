@@ -14,6 +14,7 @@ import org.springframework.jms.support.converter.MessageConverter;
 import uz.cbssolutions.broker.service.Subscriber;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -36,12 +37,14 @@ public class SubscriberConfig {
      *
      * @param subscribers            List of implemented {@link Subscriber}.
      * @param messageListenerAdapter Default message listener adapter.
+     * @param properties             JMS properties.
      * @return Runner's bean.
      */
     @Bean
-    public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter) {
+    public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter,
+                                    JmsProperties properties) {
         return args -> subscribers.forEach(subscriber -> {
-            var container = createContainer(messageListenerAdapter, subscriber);
+            var container = createContainer(messageListenerAdapter, subscriber, properties);
             var beanName = "messageListenerContainer_" + subscriber.getTopic();
             applicationContext.registerBean(beanName, DefaultMessageListenerContainer.class, () -> container);
             applicationContext.getBean(beanName, DefaultMessageListenerContainer.class).start();
@@ -49,15 +52,13 @@ public class SubscriberConfig {
     }
 
     private DefaultMessageListenerContainer createContainer(MessageListenerAdapter messageListenerAdapter,
-                                                            Subscriber subscriber) {
+                                                            Subscriber subscriber, JmsProperties properties) {
         var container = new DefaultMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageConverter(messageConverter);
         container.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
         container.setClientId(applicationContext.getId() + "_" + UUID.randomUUID());
-        container.setPubSubDomain(true);
-        container.setSubscriptionDurable(true);
-        container.setSubscriptionShared(true);
+        container.setPubSubDomain(Objects.equals(properties.exchangeType(), ExchangeType.TOPIC));
         container.setDestinationName(subscriber.getTopic());
         container.setMessageListener(messageListenerAdapter);
         return container;

@@ -11,7 +11,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.3.43</version>
+    <version>0.3.44</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 

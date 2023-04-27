@@ -21,7 +21,9 @@ public class PublisherUtil {
      */
     public MessagePostProcessor applyHeaders(Map<String, Object> headers) {
         return message -> {
-            headers.entrySet().forEach(header -> applyHeader(message, header));
+            if (headers != null) {
+                headers.entrySet().forEach(header -> applyHeader(message, header));
+            }
             return message;
         };
     }

@@ -11,7 +11,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.3.45</version>
+    <version>0.3.46</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 
@@ -45,11 +45,6 @@
             <groupId>javax.jms</groupId>
             <artifactId>javax.jms-api</artifactId>
             <version>${javax.jms-api.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>uz.cbssolutions</groupId>
-            <artifactId>checkstyle</artifactId>
-            <version>${checkstyle.version}</version>
         </dependency>
         <dependency>
             <groupId>uz.cbssolutions</groupId>

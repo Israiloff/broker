@@ -11,7 +11,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.3.44</version>
+    <version>0.3.45</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 
@@ -26,14 +26,6 @@
         <sneaky-serializer.version>0.1.1</sneaky-serializer.version>
         <rjvalidation.version>1.0.0</rjvalidation.version>
     </properties>
-
-    <distributionManagement>
-        <repository>
-            <id>central</id>
-            <name>jfrog-artifactory-0-releases</name>
-            <url>http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release-local</url>
-        </repository>
-    </distributionManagement>
 
     <dependencies>
         <dependency>

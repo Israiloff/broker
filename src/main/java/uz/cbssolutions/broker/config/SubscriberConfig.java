@@ -47,7 +47,7 @@ public class SubscriberConfig {
             var container = createContainer(messageListenerAdapter, subscriber, properties);
             var beanName = "messageListenerContainer_" + subscriber.getTopic();
             applicationContext.registerBean(beanName, DefaultMessageListenerContainer.class, () -> container);
-            applicationContext.getBean(beanName, DefaultMessageListenerContainer.class).start();
+            container.start();
         });
     }
 

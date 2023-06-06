@@ -8,7 +8,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.jms.listener.DefaultMessageListenerContainer;
+import org.springframework.jms.listener.SimpleMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
 import org.springframework.jms.support.converter.MessageConverter;
 import uz.cbssolutions.broker.service.Subscriber;
@@ -46,14 +46,14 @@ public class SubscriberConfig {
         return args -> subscribers.forEach(subscriber -> {
             var container = createContainer(messageListenerAdapter, subscriber, properties);
             var beanName = "messageListenerContainer_" + subscriber.getTopic();
-            applicationContext.registerBean(beanName, DefaultMessageListenerContainer.class, () -> container);
+            applicationContext.registerBean(beanName, SimpleMessageListenerContainer.class, () -> container);
             container.start();
         });
     }
 
-    private DefaultMessageListenerContainer createContainer(MessageListenerAdapter messageListenerAdapter,
-                                                            Subscriber subscriber, JmsProperties properties) {
-        var container = new DefaultMessageListenerContainer();
+    private SimpleMessageListenerContainer createContainer(MessageListenerAdapter messageListenerAdapter,
+                                                           Subscriber subscriber, JmsProperties properties) {
+        var container = new SimpleMessageListenerContainer();
         container.setConnectionFactory(connectionFactory);
         container.setMessageConverter(messageConverter);
         container.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);

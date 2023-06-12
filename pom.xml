@@ -11,7 +11,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.3.48</version>
+    <version>0.3.49</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 
@@ -24,7 +24,7 @@
         <cbs-checkstyle.version>0.2.25</cbs-checkstyle.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <sneaky-serializer.version>0.1.1</sneaky-serializer.version>
-        <rjvalidation.version>1.0.0</rjvalidation.version>
+        <rjvalidation.version>2.0.0</rjvalidation.version>
     </properties>
 
     <dependencies>

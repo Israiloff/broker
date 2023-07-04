@@ -4,6 +4,7 @@ import jakarta.jms.JMSException;
 import jakarta.jms.TextMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueue;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopic;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import java.util.Map;
 /**
  * Utilities for JMS message listener.
  */
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class ListenerUtil {
@@ -31,12 +33,16 @@ public class ListenerUtil {
      */
     @SneakyThrows
     public Map<String, Object> getHeaders(jakarta.jms.Message msg) {
+        log.debug("getHeaders started");
+
         var propertyMap = new HashMap<String, Object>();
         var srcProperties = msg.getPropertyNames();
         while (srcProperties.hasMoreElements()) {
             var propertyName = (String) srcProperties.nextElement();
             propertyMap.put(propertyName, msg.getObjectProperty(propertyName));
         }
+
+        log.debug("headers created : {}", propertyMap);
         return propertyMap;
     }
 
@@ -48,12 +54,17 @@ public class ListenerUtil {
      */
     @SneakyThrows
     public String getJsonBody(jakarta.jms.Message message) {
+        log.debug("getJsonBody started");
 
         if (!(message instanceof TextMessage)) {
+            log.error("received message is not of type {}", TextMessage.class.getName());
             throw new MessageTypeMismatchException(TextMessage.class);
         }
 
-        return ((TextMessage) message).getText();
+        var result = ((TextMessage) message).getText();
+
+        log.debug("parsed json body : {}", result);
+        return result;
     }
 
     /**
@@ -64,8 +75,13 @@ public class ListenerUtil {
      * @throws JMSException JMS processing error.
      */
     public String getTopicName(jakarta.jms.Message message) throws JMSException {
-        return properties.exchangeType() == ExchangeType.TOPIC
+        log.debug("getTopicName started");
+
+        var result = properties.exchangeType() == ExchangeType.TOPIC
                 ? ((ActiveMQTopic) message.getJMSDestination()).getName()
                 : ((ActiveMQQueue) message.getJMSDestination()).getName();
+
+        log.debug("topic name resolved : {}", result);
+        return result;
     }
 }

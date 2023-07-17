@@ -5,7 +5,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
+import uz.cbssolutions.broker.model.KeyPair;
 import uz.cbssolutions.broker.model.Message;
+import uz.cbssolutions.broker.model.RequestData;
 import uz.cbssolutions.broker.service.Subscriber;
 import uz.cbssolutions.broker.util.ListenerUtil;
 import uz.cbssolutions.serializer.service.SneakySerializer;
@@ -43,16 +45,21 @@ public class MainMessageListener implements MessageListener {
     public void onMessage(jakarta.jms.Message message) {
         log.debug("onMessage started");
 
-        var topic = listenerUtil.getTopicName(message);
-        var json = listenerUtil.getJsonBody(message);
-        var headers = listenerUtil.getHeaders(message);
-        var filtered = subscribers.filter(subscriber -> Objects.equals(subscriber.getTopic(), topic));
-
-        filtered.last()
-                .map(subscriber -> serializer.deserialize(json, subscriber.getMsgClass()))
-                .flatMapMany(o -> filtered.flatMap(subscriber ->
-                        subscriber.handle(new Message((Serializable) o, headers))))
-                .doOnError(throwable -> log.error("error occurred while processing jms message : {}", throwable))
+        listenerUtil.getTopicName(message)
+                .zipWith(listenerUtil.getJsonBody(message))
+                .zipWith(listenerUtil.getHeaders(message))
+                .map(objects -> new RequestData(objects.getT1().getT1(), objects.getT1().getT2(), objects.getT2()))
+                .flatMap(data ->
+                        subscribers
+                                .filter(subscriber -> Objects.equals(subscriber.getTopic(), data.topic()))
+                                .last()
+                                .<KeyPair<Subscriber, Serializable>>handle((subscriber, sink) -> {
+                                    var result = (Serializable) serializer
+                                            .deserialize(data.jsonBody(), subscriber.getMsgClass());
+                                    sink.next(new KeyPair<>(subscriber, result));
+                                })
+                                .flatMap(pair -> pair.key().handle(new Message(pair.value(), data.headers()))))
+                .doOnError(e -> log.error("error occurred while processing jms message", e))
                 .subscribe();
     }
 }

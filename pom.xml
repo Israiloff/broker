@@ -11,7 +11,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.5.50</version>
+    <version>0.5.51</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 
@@ -19,8 +19,8 @@
         <java.version>17</java.version>
         <checkstyle.version>0.2.25</checkstyle.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
-        <broker-model.version>0.0.3</broker-model.version>
-        <broker-error.version>0.0.2</broker-error.version>
+        <broker-model.version>0.1.7</broker-model.version>
+        <broker-error.version>0.1.5</broker-error.version>
         <cbs-checkstyle.version>0.2.25</cbs-checkstyle.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <sneaky-serializer.version>0.1.1</sneaky-serializer.version>
@@ -47,13 +47,13 @@
             <version>${javax.jms-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>uz.cbssolutions</groupId>
-            <artifactId>broker-model</artifactId>
+            <groupId>uz.cbssolutions.commons.broker</groupId>
+            <artifactId>models</artifactId>
             <version>${broker-model.version}</version>
         </dependency>
         <dependency>
-            <groupId>uz.cbssolutions</groupId>
-            <artifactId>broker-error</artifactId>
+            <groupId>uz.cbssolutions.commons.broker</groupId>
+            <artifactId>errors</artifactId>
             <version>${broker-error.version}</version>
         </dependency>
         <dependency>

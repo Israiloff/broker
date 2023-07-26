@@ -11,6 +11,8 @@ import org.apache.commons.collections.IteratorUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
+import reactor.util.function.Tuple2;
+import reactor.util.function.Tuples;
 import uz.cbssolutions.broker.config.ExchangeType;
 import uz.cbssolutions.broker.config.JmsProperties;
 import uz.cbssolutions.broker.error.GetHeadersException;
@@ -18,15 +20,15 @@ import uz.cbssolutions.broker.error.GetMessageException;
 import uz.cbssolutions.broker.error.HeaderExtractionException;
 import uz.cbssolutions.broker.error.MessageTypeMismatchException;
 import uz.cbssolutions.broker.error.TopicNameResolveException;
-import uz.cbssolutions.broker.model.KeyPair;
 
 import java.util.Enumeration;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Utilities for JMS message listener.
  */
-@SuppressWarnings("rawtypes")
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Slf4j
 @Component
 @RequiredArgsConstructor
@@ -52,15 +54,15 @@ public class ListenerUtil {
                     }
                 })
                 .map(Enumeration::asIterator)
-                .<String>flatMapIterable(IteratorUtils::toList)
-                .<KeyPair<String, Object>>handle((propertyName, sink) -> {
+                .flatMapIterable(iterator -> (List<String>) IteratorUtils.toList(iterator))
+                .<Tuple2<String, Object>>handle((propertyName, sink) -> {
                     try {
-                        sink.next(new KeyPair<>(propertyName, msg.getObjectProperty(propertyName)));
+                        sink.next(Tuples.of(propertyName, msg.getObjectProperty(propertyName)));
                     } catch (Throwable e) {
                         sink.error(new HeaderExtractionException(e));
                     }
                 })
-                .collectMap(KeyPair::key, KeyPair::value)
+                .collectMap(Tuple2::getT1, Tuple2::getT2)
                 .publishOn(Schedulers.boundedElastic());
     }
 

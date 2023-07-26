@@ -2,6 +2,7 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -11,7 +12,7 @@
 
     <groupId>uz.cbssolutions</groupId>
     <artifactId>broker</artifactId>
-    <version>0.5.51</version>
+    <version>0.5.52</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 
@@ -19,7 +20,7 @@
         <java.version>17</java.version>
         <checkstyle.version>0.2.25</checkstyle.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
-        <broker-model.version>0.1.7</broker-model.version>
+        <broker-model.version>0.2.7</broker-model.version>
         <broker-error.version>0.2.5</broker-error.version>
         <cbs-checkstyle.version>0.2.25</cbs-checkstyle.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>

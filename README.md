@@ -19,21 +19,24 @@ To configure plugin do the steps described below:
 ```
 
 > Where [***VERSION***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release/uz/cbssolutions/broker/) is the latest version of the 
-[***Broker***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) plugin. You can check it out in 
-the [***Package Registry***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release).
+[***Broker***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) plugin. You can check it out in
+> the [***Package Registry***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release).
 
 - Configure connection parameters in your [***application.yml***](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
 
 ```yml
-cbs-broker:
-  url: tcp://localhost:61616/
-  user: admin
-  password: admin
+cbs:
+  broker:
+    url: tcp://localhost:61616/
+    user: admin
+    password: admin
+    exchangeType: TOPIC
 ```
 
 > - ***url*** - the broker's actual address.
 > - ***username*** - username registered in the broker's system.
 > - ***password*** - password of the user discribed above.
+> - ***exchangeType*** - Type of exchange strategy (**TOPIC/QUEUE**).
 
 ## Publish
 

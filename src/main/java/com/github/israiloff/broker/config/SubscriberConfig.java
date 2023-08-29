@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.config;
+package com.github.israiloff.broker.config;
 
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Session;
@@ -11,7 +11,7 @@ import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
 import org.springframework.jms.support.converter.MessageConverter;
-import uz.cbssolutions.broker.service.Subscriber;
+import com.github.israiloff.broker.service.Subscriber;
 
 import java.util.List;
 import java.util.Objects;

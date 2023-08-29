@@ -1,5 +1,8 @@
-package uz.cbssolutions.broker.service.impl;
+package com.github.israiloff.broker.service.impl;
 
+import com.github.israiloff.broker.config.JmsSubPubConfig;
+import com.github.israiloff.broker.service.Publisher;
+import com.github.israiloff.broker.util.PublisherUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,9 +10,6 @@ import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
-import uz.cbssolutions.broker.config.JmsSubPubConfig;
-import uz.cbssolutions.broker.service.Publisher;
-import uz.cbssolutions.broker.util.PublisherUtil;
 
 import java.io.Serializable;
 import java.util.Map;

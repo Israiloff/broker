@@ -1,5 +1,7 @@
-package uz.cbssolutions.broker.service.impl;
+package com.github.israiloff.broker.service.impl;
 
+import com.github.israiloff.broker.service.Subscriber;
+import com.github.israiloff.broker.util.ListenerUtil;
 import jakarta.jms.MessageListener;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +12,6 @@ import reactor.util.function.Tuples;
 import uz.cbssolutions.broker.error.JmsMessageDeserializationException;
 import uz.cbssolutions.broker.model.Message;
 import uz.cbssolutions.broker.model.RequestData;
-import uz.cbssolutions.broker.service.Subscriber;
-import uz.cbssolutions.broker.util.ListenerUtil;
 import uz.cbssolutions.serializer.service.SneakySerializer;
 
 import java.io.Serializable;

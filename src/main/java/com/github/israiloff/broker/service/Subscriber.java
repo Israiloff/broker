@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.service;
+package com.github.israiloff.broker.service;
 
 import reactor.core.publisher.Mono;
 import uz.cbssolutions.broker.model.Message;

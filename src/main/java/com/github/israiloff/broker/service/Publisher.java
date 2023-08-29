@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.service;
+package com.github.israiloff.broker.service;
 
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;

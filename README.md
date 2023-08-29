@@ -170,15 +170,14 @@ be qualified by their proper bean names. The mocking components will be listed b
 You can mock up above components by using [***Mockito***](https://site.mockito.org/) mocking framework in your test 
 [***configuration***](https://docs.spring.io/spring-boot/docs/2.0.x/reference/html/using-boot-configuration-classes.html) class.
 
-
 ```java
 import jakarta.jms.ConnectionFactory;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MessageConverter;
-import uz.cbssolutions.broker.config.JmsConfig;
-import uz.cbssolutions.broker.config.JmsSubPubConfig;
+import config.com.github.israiloff.broker.JmsConfig;
+import config.com.github.israiloff.broker.JmsSubPubConfig;
 
 @Configuration
 public class TestConfig {
@@ -189,6 +188,6 @@ public class TestConfig {
     public MessageConverter jacksonJmsMessageConverter;
     @MockBean(name = JmsSubPubConfig.JMS_TEMPLATE)
     public JmsTemplate jmsTemplate;
-    
+
 }
 ```

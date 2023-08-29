@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.config;
+package com.github.israiloff.broker.config;
 
 /**
  * Type of exchange.

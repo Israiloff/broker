@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.util;
+package com.github.israiloff.broker.util;
 
 import jakarta.jms.JMSException;
 import jakarta.jms.TextMessage;
@@ -13,8 +13,8 @@ import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
-import uz.cbssolutions.broker.config.ExchangeType;
-import uz.cbssolutions.broker.config.JmsProperties;
+import com.github.israiloff.broker.config.ExchangeType;
+import com.github.israiloff.broker.config.JmsProperties;
 import uz.cbssolutions.broker.error.GetHeadersException;
 import uz.cbssolutions.broker.error.GetMessageException;
 import uz.cbssolutions.broker.error.HeaderExtractionException;

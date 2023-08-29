@@ -1,4 +1,4 @@
-package uz.cbssolutions.broker.util;
+package com.github.israiloff.broker.util;
 
 import jakarta.jms.Message;
 import lombok.SneakyThrows;

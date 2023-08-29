@@ -15,7 +15,7 @@
     <version>1.0.0</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Message broker integration plugin</description>
-    <url>https://github.com/Israiloff/checkstyle-rules</url>
+    <url>https://github.com/israiloff/broker</url>
 
     <properties>
         <java.version>17</java.version>
@@ -153,9 +153,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:git://github.com/israiloff/checkstyle-rules.git</connection>
-        <developerConnection>scm:git:ssh://github.com:israiloff/checkstyle-rules.git</developerConnection>
-        <url>https://github.com/israiloff/checkstyle-rules/tree/master</url>
+        <connection>scm:git:git://github.com/israiloff/broker.git</connection>
+        <developerConnection>scm:git:ssh://github.com:israiloff/broker.git</developerConnection>
+        <url>https://github.com/israiloff/broker/tree/master</url>
     </scm>
 
 </project>

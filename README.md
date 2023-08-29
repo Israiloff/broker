@@ -6,7 +6,7 @@ Plugin has been created to simplify subscribe/publish pattern of JMS in reactive
 
 To configure plugin do the steps described below:
 
-- Include the [***Broker***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) dependency into your 
+- Include the [***Broker***](https://github.com/Israiloff/broker) dependency into your 
 [***pom.xml***](https://maven.apache.org/guides/introduction/introduction-to-the-pom.html).
 
 ```xml
@@ -18,19 +18,21 @@ To configure plugin do the steps described below:
 </dependency>
 ```
 
-> Where [***VERSION***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release/uz/cbssolutions/broker/) is the latest version of the 
-[***Broker***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) plugin. You can check it out in
-> the [***Package Registry***](http://jfrog-artifactory.hayotbank.uz/artifactory/libs-release).
+> Where [***VERSION***](https://github.com/Israiloff/broker) is the latest version of the 
+[***Broker***](https://github.com/Israiloff/broker) plugin. You can check it out in
+> the [***Package Registry***](https://github.com/Israiloff/broker).
 
 - Configure connection parameters in your [***application.yml***](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
 
 ```yml
-cbs:
-  broker:
-    url: tcp://localhost:61616/
-    user: admin
-    password: admin
-    exchangeType: TOPIC
+com:
+  github:
+    israiloff:
+      broker:
+        url: tcp://localhost:61616/
+        user: admin
+        password: admin
+        exchangeType: TOPIC
 ```
 
 > - ***url*** - the broker's actual address.
@@ -40,10 +42,10 @@ cbs:
 
 ## Publish
 
-Message publishing in reactive manner via [***this***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker) plugin is pretty easy.
+Message publishing in reactive manner via [***this***](https://github.com/Israiloff/broker) plugin is pretty easy.
 
-First of all, you must inject instance of [***Publisher***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Publisher.java) interface. Then somewhere of your reactive downstream call the
-[***publish(..)***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Publisher.java) 
+First of all, you must inject instance of [***Publisher***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Publisher.java) interface. Then somewhere of your reactive downstream call the
+[***publish(..)***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Publisher.java) 
 method. Pass the ***topic name***, ***body*** and ***headers*** into it. That's it!
 
 ```java
@@ -96,17 +98,17 @@ class Dummy {
 
 Topic subscription is a bit complexer than [message publishing](#publish).
 To subscribe to some topic you must implement the 
-[***Subscriber***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java) 
-interface. You will see that the [***Subscriber***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)
-interface has three members. The [***getTopic()***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java) 
+[***Subscriber***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java) 
+interface. You will see that the [***Subscriber***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java)
+interface has three members. The [***getTopic()***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java) 
 method returns the name of the topic to which you want to subscribe.
-[***getMsgClass()***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java) 
+[***getMsgClass()***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java) 
 method returns the class of the object that you expect in the message's body. And 
-[***handle(..)***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java) 
+[***handle(..)***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java) 
 method handles an incoming message.
 
-> Note that expected message (i.e. [***TRequestModel***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java)) 
-> of the [***Subscriber***](https://gitlab.hayotbank.uz/mobile-back/plugins/jms-broker/broker/-/blob/master/src/main/java/uz/cbssolutions/broker/service/Subscriber.java) 
+> Note that expected message (i.e. [***TRequestModel***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java)) 
+> of the [***Subscriber***](https://github.com/Israiloff/broker/tree/master/src/main/java/com/github/israiloff/broker/service/Subscriber.java) 
 > interface must implement the
 [***Serializable***](https://docs.oracle.com/javase/7/docs/api/java/io/Serializable.html) interface.
 
@@ -176,8 +178,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MessageConverter;
-import config.com.github.israiloff.broker.JmsConfig;
-import config.com.github.israiloff.broker.JmsSubPubConfig;
+import com.github.israiloff.broker.JmsConfig;
+import com.github.israiloff.broker.JmsSubPubConfig;
 
 @Configuration
 public class TestConfig {

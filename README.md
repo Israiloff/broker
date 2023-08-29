@@ -12,7 +12,7 @@ To configure plugin do the steps described below:
 ```xml
 
 <dependency>
-    <groupId>uz.cbssolutions</groupId>
+    <groupId>com.github.israiloff</groupId>
     <artifactId>broker</artifactId>
     <version>VERSION</version>
 </dependency>

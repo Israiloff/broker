@@ -23,7 +23,7 @@
         <broker-model.version>1.0.0</broker-model.version>
         <broker-error.version>1.0.0</broker-error.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
-        <sneaky-serializer.version>0.1.1</sneaky-serializer.version>
+        <sneaky-serializer.version>1.0.0</sneaky-serializer.version>
         <rjvalidation.version>2.0.0</rjvalidation.version>
         <native-maven-plugin.version>0.9.22</native-maven-plugin.version>
         <commons-logging-jboss-logging.version>1.0.0.Final</commons-logging-jboss-logging.version>
@@ -60,7 +60,7 @@
             <version>${broker-error.version}</version>
         </dependency>
         <dependency>
-            <groupId>uz.cbssolutions</groupId>
+            <groupId>com.github.israiloff</groupId>
             <artifactId>sneaky-serializer</artifactId>
             <version>${sneaky-serializer.version}</version>
         </dependency>

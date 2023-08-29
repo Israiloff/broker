@@ -1,7 +1,7 @@
 package com.github.israiloff.broker.service;
 
 import reactor.core.publisher.Mono;
-import uz.cbssolutions.broker.model.Message;
+import com.github.israiloff.broker.model.Message;
 
 import java.io.Serializable;
 

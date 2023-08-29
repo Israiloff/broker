@@ -10,9 +10,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>uz.cbssolutions</groupId>
+    <groupId>com.github.israiloff</groupId>
     <artifactId>broker</artifactId>
-    <version>1.1.1</version>
+    <version>1.0.0</version>
     <name>broker</name>
     <description>Message broker integration plugin</description>
 

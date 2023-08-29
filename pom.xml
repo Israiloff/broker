@@ -13,8 +13,9 @@
     <groupId>com.github.israiloff</groupId>
     <artifactId>broker</artifactId>
     <version>1.0.0</version>
-    <name>broker</name>
+    <name>${project.groupId}:${project.artifactId}</name>
     <description>Message broker integration plugin</description>
+    <url>https://github.com/Israiloff/checkstyle-rules</url>
 
     <properties>
         <java.version>17</java.version>
@@ -134,4 +135,27 @@
             </plugin>
         </plugins>
     </build>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Shomansur Israilov</name>
+            <email>stardustindark@gmail.com</email>
+            <organization>com.github.israiloff</organization>
+            <organizationUrl>https://github.com/israiloff/</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:git://github.com/israiloff/checkstyle-rules.git</connection>
+        <developerConnection>scm:git:ssh://github.com:israiloff/checkstyle-rules.git</developerConnection>
+        <url>https://github.com/israiloff/checkstyle-rules/tree/master</url>
+    </scm>
+
 </project>

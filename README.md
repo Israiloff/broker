@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.israiloff/broker/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.israiloff/broker)
+
 # Broker plugin
 
 Plugin has been created to simplify subscribe/publish pattern of JMS in reactive manner.

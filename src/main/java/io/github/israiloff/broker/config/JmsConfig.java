@@ -29,7 +29,14 @@ import java.util.Objects;
 @EnableConfigurationProperties(value = {JmsProperties.class})
 public class JmsConfig {
 
+    /**
+     * Name of the artemis connection factory bean.
+     */
     public static final String CONNECTION_FACTORY = "artemisConnectionFactory";
+
+    /**
+     * Name of the default artemis message converter bean.
+     */
     public static final String MESSAGE_CONVERTER = "artemisMessageConverter";
 
     /**

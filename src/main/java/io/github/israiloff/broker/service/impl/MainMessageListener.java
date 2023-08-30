@@ -31,6 +31,13 @@ public class MainMessageListener implements MessageListener {
     private final SneakySerializer serializer;
     private final ListenerUtil listenerUtil;
 
+    /**
+     * Constructor.
+     *
+     * @param subscribers  Collection of the all registered subscribers.
+     * @param serializer   Object serializer.
+     * @param listenerUtil Main utils.
+     */
     @SneakyThrows
     public MainMessageListener(List<Subscriber> subscribers, SneakySerializer serializer, ListenerUtil listenerUtil) {
         this.serializer = serializer;

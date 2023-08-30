@@ -27,7 +27,7 @@ To configure plugin do the steps described below:
 - Configure connection parameters in your [***application.yml***](https://docs.spring.io/spring-boot/docs/current/reference/html/application-properties.html).
 
 ```yml
-com:
+io:
   github:
     israiloff:
       broker:

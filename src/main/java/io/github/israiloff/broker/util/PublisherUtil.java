@@ -1,4 +1,4 @@
-package com.github.israiloff.broker.util;
+package io.github.israiloff.broker.util;
 
 import jakarta.jms.Message;
 import lombok.SneakyThrows;

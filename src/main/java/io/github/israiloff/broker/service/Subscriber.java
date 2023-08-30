@@ -1,4 +1,4 @@
-package com.github.israiloff.broker.service;
+package io.github.israiloff.broker.service;
 
 import reactor.core.publisher.Mono;
 import com.github.israiloff.broker.model.Message;

@@ -1,7 +1,7 @@
-package com.github.israiloff.broker.service.impl;
+package io.github.israiloff.broker.service.impl;
 
-import com.github.israiloff.broker.service.Subscriber;
-import com.github.israiloff.broker.util.ListenerUtil;
+import io.github.israiloff.broker.service.Subscriber;
+import io.github.israiloff.broker.util.ListenerUtil;
 import jakarta.jms.MessageListener;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;

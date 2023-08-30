@@ -1,4 +1,4 @@
-package com.github.israiloff.broker.service;
+package io.github.israiloff.broker.service;
 
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;

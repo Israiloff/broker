@@ -1,4 +1,4 @@
-package com.github.israiloff.broker.config;
+package io.github.israiloff.broker.config;
 
 /**
  * Type of exchange.

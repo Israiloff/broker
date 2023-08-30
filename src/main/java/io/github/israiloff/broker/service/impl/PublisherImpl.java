@@ -1,8 +1,8 @@
-package com.github.israiloff.broker.service.impl;
+package io.github.israiloff.broker.service.impl;
 
-import com.github.israiloff.broker.config.JmsSubPubConfig;
-import com.github.israiloff.broker.service.Publisher;
-import com.github.israiloff.broker.util.PublisherUtil;
+import io.github.israiloff.broker.config.JmsSubPubConfig;
+import io.github.israiloff.broker.service.Publisher;
+import io.github.israiloff.broker.util.PublisherUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;

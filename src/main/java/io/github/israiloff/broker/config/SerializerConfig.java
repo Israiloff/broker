@@ -14,7 +14,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SerializerConfig {
 
-    public static final String SERIALIZER_NAME = "cmBrokerJacksonMapper";
+    /**
+     * Name of the default jackson serializer bean.
+     */
+    public static final String SERIALIZER_NAME = "cmArtemisJacksonMapper";
 
     /**
      * Jackson mapper defined bean creation point.

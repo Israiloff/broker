@@ -32,12 +32,12 @@ public class JmsConfig {
     /**
      * Name of the artemis connection factory bean.
      */
-    public static final String CONNECTION_FACTORY = "artemisConnectionFactory";
+    public static final String CONNECTION_FACTORY = "cmArtemisConnectionFactory";
 
     /**
      * Name of the default artemis message converter bean.
      */
-    public static final String MESSAGE_CONVERTER = "artemisMessageConverter";
+    public static final String MESSAGE_CONVERTER = "cmArtemisMessageConverter";
 
     /**
      * Connection factory behaviour defined bean.

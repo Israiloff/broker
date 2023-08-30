@@ -24,7 +24,10 @@ import java.util.Objects;
 @EnableConfigurationProperties(value = {JmsProperties.class})
 public class JmsSubPubConfig {
 
-    public static final String JMS_TEMPLATE = "cmBrokerJmsTemplate";
+    /**
+     * Name of the artemis JMS template bean.
+     */
+    public static final String JMS_TEMPLATE = "cmArtemisJmsTemplate";
 
     @Qualifier(JmsConfig.MESSAGE_CONVERTER)
     private final MessageConverter messageConverter;

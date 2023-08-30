@@ -25,7 +25,7 @@
         <broker-error.version>1.0.0</broker-error.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <sneaky-serializer.version>1.0.0</sneaky-serializer.version>
-        <rjvalidation.version>2.0.0</rjvalidation.version>
+        <rjvalidation.version>1.0.0</rjvalidation.version>
         <native-maven-plugin.version>0.9.22</native-maven-plugin.version>
         <commons-logging-jboss-logging.version>1.0.0.Final</commons-logging-jboss-logging.version>
         <checkstyle-rules.version>1.0.1</checkstyle-rules.version>
@@ -53,22 +53,22 @@
             <version>${javax.jms-api.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.israiloff.broker</groupId>
+            <groupId>io.github.israiloff.broker</groupId>
             <artifactId>models</artifactId>
             <version>${broker-model.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.israiloff.broker</groupId>
+            <groupId>io.github.israiloff.broker</groupId>
             <artifactId>errors</artifactId>
             <version>${broker-error.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.israiloff</groupId>
+            <groupId>io.github.israiloff</groupId>
             <artifactId>sneaky-serializer</artifactId>
             <version>${sneaky-serializer.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.github.israiloff</groupId>
+            <groupId>io.github.israiloff</groupId>
             <artifactId>rjvalidation</artifactId>
             <version>${rjvalidation.version}</version>
         </dependency>

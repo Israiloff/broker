@@ -2,8 +2,8 @@ package io.github.israiloff.broker.service;
 
 import org.springframework.validation.annotation.Validated;
 import reactor.core.publisher.Mono;
-import com.github.israiloff.rjvalidation.constraint.CmNotBlank;
-import com.github.israiloff.rjvalidation.constraint.CmNotNull;
+import io.github.israiloff.rjvalidation.constraint.CmNotBlank;
+import io.github.israiloff.rjvalidation.constraint.CmNotNull;
 
 import java.io.Serializable;
 import java.util.Map;

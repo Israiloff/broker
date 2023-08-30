@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
 import reactor.util.function.Tuple3;
 import reactor.util.function.Tuples;
-import com.github.israiloff.broker.error.JmsMessageDeserializationException;
-import com.github.israiloff.broker.model.Message;
-import com.github.israiloff.broker.model.RequestData;
-import com.github.israiloff.serializer.service.SneakySerializer;
+import io.github.israiloff.broker.error.JmsMessageDeserializationException;
+import io.github.israiloff.broker.model.Message;
+import io.github.israiloff.broker.model.RequestData;
+import io.github.israiloff.serializer.service.SneakySerializer;
 
 import java.io.Serializable;
 import java.util.List;

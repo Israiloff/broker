@@ -1,7 +1,7 @@
 package io.github.israiloff.broker.service;
 
 import reactor.core.publisher.Mono;
-import com.github.israiloff.broker.model.Message;
+import io.github.israiloff.broker.model.Message;
 
 import java.io.Serializable;
 

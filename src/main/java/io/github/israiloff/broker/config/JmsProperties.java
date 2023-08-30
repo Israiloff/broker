@@ -10,6 +10,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @param password     Password of {@code user}.
  * @param exchangeType Type of exchange.
  */
-@ConfigurationProperties(prefix = "com.github.israiloff.broker")
+@ConfigurationProperties(prefix = "io.github.israiloff.broker")
 public record JmsProperties(String url, String user, String password, ExchangeType exchangeType) {
 }

@@ -12,7 +12,7 @@ To configure plugin do the steps described below:
 ```xml
 
 <dependency>
-    <groupId>com.github.israiloff</groupId>
+    <groupId>io.github.israiloff</groupId>
     <artifactId>broker</artifactId>
     <version>VERSION</version>
 </dependency>
@@ -178,8 +178,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.support.converter.MessageConverter;
-import com.github.israiloff.broker.JmsConfig;
-import com.github.israiloff.broker.JmsSubPubConfig;
+import io.github.israiloff.broker.JmsConfig;
+import io.github.israiloff.broker.JmsSubPubConfig;
 
 @Configuration
 public class TestConfig {

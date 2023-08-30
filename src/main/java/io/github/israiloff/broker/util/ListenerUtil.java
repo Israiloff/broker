@@ -15,11 +15,11 @@ import reactor.util.function.Tuple2;
 import reactor.util.function.Tuples;
 import io.github.israiloff.broker.config.ExchangeType;
 import io.github.israiloff.broker.config.JmsProperties;
-import com.github.israiloff.broker.error.GetHeadersException;
-import com.github.israiloff.broker.error.GetMessageException;
-import com.github.israiloff.broker.error.HeaderExtractionException;
-import com.github.israiloff.broker.error.MessageTypeMismatchException;
-import com.github.israiloff.broker.error.TopicNameResolveException;
+import io.github.israiloff.broker.error.GetHeadersException;
+import io.github.israiloff.broker.error.GetMessageException;
+import io.github.israiloff.broker.error.HeaderExtractionException;
+import io.github.israiloff.broker.error.MessageTypeMismatchException;
+import io.github.israiloff.broker.error.TopicNameResolveException;
 
 import java.util.Enumeration;
 import java.util.List;

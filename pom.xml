@@ -10,7 +10,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.github.israiloff</groupId>
+    <groupId>io.github.israiloff</groupId>
     <artifactId>broker</artifactId>
     <version>1.0.0</version>
     <name>${project.groupId}:${project.artifactId}</name>

@@ -12,7 +12,7 @@
 
     <groupId>io.github.israiloff</groupId>
     <artifactId>broker</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <name>${project.groupId}:${project.artifactId}</name>
     <url>https://github.com/israiloff/broker</url>
     <description>Message broker integration plugin</description>
@@ -21,7 +21,7 @@
         <java.version>17</java.version>
         <checkstyle.version>0.2.25</checkstyle.version>
         <javax.jms-api.version>2.0.1</javax.jms-api.version>
-        <broker-model.version>1.0.0</broker-model.version>
+        <broker-model.version>1.0.1</broker-model.version>
         <broker-error.version>1.0.0</broker-error.version>
         <maven-checkstyle-plugin.version>3.2.1</maven-checkstyle-plugin.version>
         <sneaky-serializer.version>1.0.0</sneaky-serializer.version>

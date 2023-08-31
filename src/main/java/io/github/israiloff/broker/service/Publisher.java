@@ -1,11 +1,10 @@
 package io.github.israiloff.broker.service;
 
-import org.springframework.validation.annotation.Validated;
-import reactor.core.publisher.Mono;
 import io.github.israiloff.rjvalidation.constraint.CmNotBlank;
 import io.github.israiloff.rjvalidation.constraint.CmNotNull;
+import org.springframework.validation.annotation.Validated;
+import reactor.core.publisher.Mono;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -23,6 +22,6 @@ public interface Publisher {
      * @param <TRequestModel> Type of object to publish.
      * @return End operation signal.
      */
-    <TRequestModel extends Serializable> Mono<Void> publish(@CmNotBlank String topic, @CmNotNull TRequestModel model,
-                                                            Map<String, Object> headers);
+    <TRequestModel> Mono<Void> publish(@CmNotBlank String topic, @CmNotNull TRequestModel model,
+                                       Map<String, Object> headers);
 }

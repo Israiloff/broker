@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
-import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -34,8 +33,8 @@ public class PublisherImpl implements Publisher {
      * @return End operation signal.
      */
     @Override
-    public <TRequestModel extends Serializable> Mono<Void> publish(String topic, TRequestModel model,
-                                                                   Map<String, Object> headers) {
+    public <TRequestModel> Mono<Void> publish(String topic, TRequestModel model,
+                                              Map<String, Object> headers) {
         log.debug("publish started for topic : {}", topic);
         return Mono.<Void>create(sink -> {
             jmsTemplate.convertAndSend(topic, model, publisherUtil.applyHeaders(headers));

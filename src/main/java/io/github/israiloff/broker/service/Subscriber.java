@@ -1,9 +1,7 @@
 package io.github.israiloff.broker.service;
 
-import reactor.core.publisher.Mono;
 import io.github.israiloff.broker.model.Message;
-
-import java.io.Serializable;
+import reactor.core.publisher.Mono;
 
 /**
  * Message subscriber.
@@ -11,7 +9,7 @@ import java.io.Serializable;
  *
  * @param <TRequestModel> Type of expected incoming message (i.e. Body of message).
  */
-public interface Subscriber<TRequestModel extends Serializable> {
+public interface Subscriber<TRequestModel> {
 
     /**
      * Method to get class of expected body.

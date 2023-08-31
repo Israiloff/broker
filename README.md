@@ -195,3 +195,15 @@ public class TestConfig {
 
 }
 ```
+
+## Requirements
+
+You must [**create a bean**](https://www.baeldung.com/spring-bean) of your service by yourself
+(by annotating service with [***@Service***](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Service.html)
+or [***@Component***](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/stereotype/Component.html)
+annotations, or by declaring it in configuration class via
+[***@Bean***](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Bean.html) annotation).
+<!-- -->
+The second important thing is to register beans of [this plugin](https://github.com/Israiloff/rpc4rj) by scanning elements
+via [***@ComponentScan("io.github.israiloff.rpc4rj")***](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/ComponentScan.html) or via
+[***@SpringBootApplication(scanBasePackages = {"io.github.israiloff.rpc4rj"})***](https://docs.spring.io/spring-boot/docs/current/api/org/springframework/boot/autoconfigure/SpringBootApplication.html).

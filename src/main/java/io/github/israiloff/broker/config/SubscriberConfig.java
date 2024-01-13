@@ -1,21 +1,16 @@
 package io.github.israiloff.broker.config;
 
-import jakarta.jms.ConnectionFactory;
-import jakarta.jms.Session;
+import io.github.israiloff.broker.service.Subscriber;
+import io.github.israiloff.broker.util.SubscriberUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
-import org.springframework.jms.support.converter.MessageConverter;
-import io.github.israiloff.broker.service.Subscriber;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Subscription related specific beans configuration.
@@ -25,10 +20,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SubscriberConfig {
 
-    @Qualifier(JmsConfig.MESSAGE_CONVERTER)
-    private final MessageConverter messageConverter;
-    @Qualifier(JmsConfig.CONNECTION_FACTORY)
-    private final ConnectionFactory connectionFactory;
+    private final SubscriberUtil util;
+
     private final GenericApplicationContext applicationContext;
 
     /**
@@ -37,30 +30,15 @@ public class SubscriberConfig {
      *
      * @param subscribers            List of implemented {@link Subscriber}.
      * @param messageListenerAdapter Default message listener adapter.
-     * @param properties             JMS properties.
      * @return Runner's bean.
      */
     @Bean
-    public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter,
-                                    JmsProperties properties) {
+    public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter) {
         return args -> subscribers.forEach(subscriber -> {
-            var container = createContainer(messageListenerAdapter, subscriber, properties);
+            var container = util.createContainer(messageListenerAdapter, subscriber);
             var beanName = "messageListenerContainer_" + subscriber.getTopic();
             applicationContext.registerBean(beanName, SimpleMessageListenerContainer.class, () -> container);
             container.start();
         });
-    }
-
-    private SimpleMessageListenerContainer createContainer(MessageListenerAdapter messageListenerAdapter,
-                                                           Subscriber subscriber, JmsProperties properties) {
-        var container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(connectionFactory);
-        container.setMessageConverter(messageConverter);
-        container.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
-        container.setClientId(applicationContext.getId() + "_" + UUID.randomUUID());
-        container.setPubSubDomain(Objects.equals(properties.exchangeType(), ExchangeType.TOPIC));
-        container.setDestinationName(subscriber.getTopic());
-        container.setMessageListener(messageListenerAdapter);
-        return container;
     }
 }

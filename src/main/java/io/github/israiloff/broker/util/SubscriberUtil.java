@@ -1,8 +1,7 @@
 package io.github.israiloff.broker.util;
 
 import io.github.israiloff.broker.config.ExchangeType;
-import io.github.israiloff.broker.config.JmsConfig;
-import io.github.israiloff.broker.config.JmsProperties;
+import io.github.israiloff.broker.config.SubscriberProperties;
 import io.github.israiloff.broker.service.Subscriber;
 import jakarta.jms.ConnectionFactory;
 import jakarta.jms.Session;
@@ -10,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.apache.activemq.artemis.jms.client.ActiveMQQueueConnectionFactory;
 import org.apache.activemq.artemis.jms.client.ActiveMQTopicConnectionFactory;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
@@ -29,13 +27,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class SubscriberUtil {
 
-    private final JmsProperties properties;
-
-    @Qualifier(JmsConfig.MESSAGE_CONVERTER)
-    private final MessageConverter messageConverter;
-
-    private final GenericApplicationContext applicationContext;
-
     /**
      * Creates Active MQ connection factory.
      *
@@ -43,13 +34,18 @@ public class SubscriberUtil {
      * @return Connection factory.
      */
     @SneakyThrows
-    public ConnectionFactory createConnectionFactory(ExchangeType exchangeType) {
+    public ConnectionFactory createConnectionFactory(ExchangeType exchangeType,
+                                                     SubscriberProperties properties,
+                                                     Subscriber subscriber) {
         var connectionFactory = Objects.equals(exchangeType, ExchangeType.TOPIC)
                 ? new ActiveMQTopicConnectionFactory()
                 : new ActiveMQQueueConnectionFactory();
-        connectionFactory.setBrokerURL(properties.url());
-        connectionFactory.setUser(properties.user());
-        connectionFactory.setPassword(properties.password());
+        connectionFactory.setBrokerURL(subscriber.getUrl() != null ? subscriber.getUrl() : properties.url());
+        connectionFactory.setUser(subscriber.getUser() != null ? subscriber.getUser() : properties.user());
+        connectionFactory.setPassword(
+                subscriber.getPassword() != null
+                        ? subscriber.getPassword()
+                        : properties.password());
         return connectionFactory;
     }
 
@@ -85,9 +81,13 @@ public class SubscriberUtil {
      * @return Message listener container.
      */
     public SimpleMessageListenerContainer createContainer(MessageListenerAdapter messageListenerAdapter,
-                                                          Subscriber subscriber) {
+                                                          Subscriber subscriber,
+                                                          GenericApplicationContext applicationContext,
+                                                          MessageConverter messageConverter,
+                                                          SubscriberProperties properties) {
         var container = new SimpleMessageListenerContainer();
-        container.setConnectionFactory(createConnectionFactory(subscriber.getExchangeType()));
+        container.setConnectionFactory(
+                createConnectionFactory(subscriber.getExchangeType(), properties, subscriber));
         container.setMessageConverter(messageConverter);
         container.setSessionAcknowledgeMode(Session.SESSION_TRANSACTED);
         container.setClientId(

@@ -13,6 +13,33 @@ import reactor.core.publisher.Mono;
 public interface Subscriber<TRequestModel> {
 
     /**
+     * Gets url address of the target message broker server.
+     *
+     * @return Url address.
+     */
+    default String getUrl() {
+        return null;
+    }
+
+    /**
+     * Gets username of the target message broker server.
+     *
+     * @return Username.
+     */
+    default String getUser() {
+        return null;
+    }
+
+    /**
+     * Gets password of the target message broker server.
+     *
+     * @return Value of the password.
+     */
+    default String getPassword() {
+        return null;
+    }
+
+    /**
      * Method to get class of expected body.
      *
      * @return Expected class.

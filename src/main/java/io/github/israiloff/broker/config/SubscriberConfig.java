@@ -4,12 +4,14 @@ import io.github.israiloff.broker.service.Subscriber;
 import io.github.israiloff.broker.util.SubscriberUtil;
 import jakarta.jms.MessageListener;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.GenericApplicationContext;
 import org.springframework.jms.listener.SimpleMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
+import org.springframework.jms.support.converter.MessageConverter;
 
 import java.util.List;
 
@@ -33,9 +35,13 @@ public class SubscriberConfig {
      */
     @Bean
     public ApplicationRunner runner(List<Subscriber> subscribers, MessageListenerAdapter messageListenerAdapter,
-                                    SubscriberUtil subscriberUtil, GenericApplicationContext applicationContext) {
+                                    SubscriberUtil subscriberUtil, GenericApplicationContext applicationContext,
+                                    @Qualifier(JmsConfig.MESSAGE_CONVERTER) MessageConverter messageConverter,
+                                    SubscriberProperties properties) {
         return args -> subscribers.forEach(subscriber -> {
-            var container = subscriberUtil.createContainer(messageListenerAdapter, subscriber);
+            var container = subscriberUtil.createContainer(
+                    messageListenerAdapter, subscriber, applicationContext,
+                    messageConverter, properties);
             var beanName = "messageListenerContainer_" + subscriber.getTopic();
             applicationContext.registerBean(beanName, SimpleMessageListenerContainer.class, () -> container);
             container.start();

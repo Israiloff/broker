@@ -13,7 +13,7 @@ import org.springframework.jms.support.converter.MessageConverter;
 import java.util.Objects;
 
 /**
- * JMS subscriber/publisher related configurations.
+ * Publisher related configurations.
  */
 @SuppressWarnings("SpringFacetCodeInspection")
 @Configuration

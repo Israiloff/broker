@@ -1,6 +1,6 @@
 package io.github.israiloff.broker.service.impl;
 
-import io.github.israiloff.broker.config.JmsSubPubConfig;
+import io.github.israiloff.broker.config.PublisherConfig;
 import io.github.israiloff.broker.service.Publisher;
 import io.github.israiloff.broker.util.PublisherUtil;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PublisherImpl implements Publisher {
 
-    @Qualifier(JmsSubPubConfig.JMS_TEMPLATE)
+    @Qualifier(PublisherConfig.JMS_TEMPLATE)
     private final JmsTemplate jmsTemplate;
     private final PublisherUtil publisherUtil;
 

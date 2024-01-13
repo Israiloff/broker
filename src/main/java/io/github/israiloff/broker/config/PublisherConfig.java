@@ -1,7 +1,6 @@
 package io.github.israiloff.broker.config;
 
 import jakarta.jms.ConnectionFactory;
-import jakarta.jms.MessageListener;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
@@ -9,7 +8,6 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.core.JmsTemplate;
-import org.springframework.jms.listener.adapter.MessageListenerAdapter;
 import org.springframework.jms.support.converter.MessageConverter;
 
 import java.util.Objects;
@@ -22,7 +20,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @ConfigurationPropertiesScan
 @EnableConfigurationProperties(value = {JmsProperties.class})
-public class JmsSubPubConfig {
+public class PublisherConfig {
 
     /**
      * Name of the artemis JMS template bean.
@@ -46,18 +44,5 @@ public class JmsSubPubConfig {
         template.setMessageConverter(messageConverter);
         template.setPubSubDomain(Objects.equals(properties.exchangeType(), ExchangeType.TOPIC));
         return template;
-    }
-
-    /**
-     * Default message listener adapter defined bean. Used for subscription purposes.
-     *
-     * @param listener Target message listener.
-     * @return Configured message listener adapter.
-     */
-    @Bean
-    public MessageListenerAdapter messageListenerAdapter(MessageListener listener) {
-        var adapter = new MessageListenerAdapter(listener);
-        adapter.setDefaultListenerMethod("onMessage");
-        return adapter;
     }
 }
